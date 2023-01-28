@@ -21,13 +21,13 @@ jobs:
         run: dotnet restore
 
       - name: Build
-        run: dotnet build -C Release
+        run: dotnet build -c Release
 
       - name: Test with the dotnet CLI
         run: dotnet test
 
       - name: Publish
-        run: dotnet publish -C Release
+        run: dotnet publish -c Release
 
       - name: Build image
         run: docker build . --file Dockerfile --tag kataviv
