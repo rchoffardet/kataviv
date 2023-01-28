@@ -1,4 +1,5 @@
 using kataviv.Features.Ads;
+using kataviv.Features.Weathers;
 using Microsoft.AspNetCore.Http.Json;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
@@ -8,6 +9,8 @@ using System.Collections.ObjectModel;
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
+
+#nullable disable
 
 namespace kataviv.tests
 {
@@ -22,6 +25,7 @@ namespace kataviv.tests
         [SetUp]
         public void Setup()
         {
+            Environment.SetEnvironmentVariable("Testing", "true");
             var factory = new WebApplicationFactory<Program>();
             server = factory.Server;
             client = server.CreateClient();
@@ -45,16 +49,19 @@ namespace kataviv.tests
         [Test]
         public async Task ItGetsPublishedAds()
         {
-            var response = await client.GetAsync(($"/ads/{ids[0]}"));
+            var expected = new AdOut(
+                "Published house ad",
+                "Published house ad description",
+                new Coordinates(-30.75269, 152.24706),
+                Adkind.House,
+                new Weather(42, 1, 100, 90)
+            );
 
+            var response = await client.GetAsync(($"/ads/{ids[0]}"));
             Assert.That(response.IsSuccessStatusCode);
 
             var content = await response.Content.ReadFromJsonAsync<AdOut>(serializerOptions);
-            Assert.That(content.title, Is.EqualTo("Published house ad"));
-            Assert.That(content.description, Is.EqualTo("Published house ad description"));
-            Assert.That(content.location, Is.EqualTo(new Coordinates(-30.75269, 152.24706)));
-            Assert.That(content.type, Is.EqualTo(Adkind.House));
-            Assert.That(content.weather, Is.Not.Null);
+            Assert.That(content, Is.EqualTo(expected));
         }
 
         [Test]
@@ -92,9 +99,17 @@ namespace kataviv.tests
             {
                 title = "My spot",
                 description = "Superb spot",
-                location = new(-24.04950, -54.77016),
+                location = new Coordinates(-24.04950, -54.77016),
                 type = Adkind.CarPark
             };
+
+            var expected = new AdOut(
+                "My spot",
+                "Superb spot",
+                new Coordinates(-24.04950, -54.77016),
+                Adkind.CarPark,
+                new Weather(42, 1, 100, 90)
+            );
 
             var creatingResponse = await client.PostAsJsonAsync($"/ads", creatingPayload);
             Assert.That(creatingResponse.StatusCode, Is.EqualTo(HttpStatusCode.Created));
@@ -109,11 +124,7 @@ namespace kataviv.tests
             Assert.That(gettingResponse.StatusCode, Is.EqualTo(HttpStatusCode.OK));
             var result = await gettingResponse.Content.ReadFromJsonAsync<AdOut>(serializerOptions);
 
-            Assert.That(result.title, Is.EqualTo("My spot"));
-            Assert.That(result.description, Is.EqualTo("Superb spot"));
-            Assert.That(result.location, Is.EqualTo(new Coordinates(-24.04950, -54.77016)));
-            Assert.That(result.type, Is.EqualTo(Adkind.CarPark));
-            Assert.That(result.weather, Is.Not.Null);
+            Assert.That(result, Is.EqualTo(expected));
         }
     }
 }

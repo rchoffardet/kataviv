@@ -34,7 +34,15 @@ public class Program
             options.UseSqlite($"Data Source={path}");
         });
         builder.Services.AddTransient<AdRepository>((services) => new AdEfRepository(services.GetRequiredService<AdDbContext>()));
-        builder.Services.AddTransient<WeatherService>((services) => new OpenMeteoWeatherService(services.GetRequiredService<IHttpClientFactory>()));
+        builder.Services.AddTransient<WeatherService>((services) =>
+        {
+            if (Environment.GetEnvironmentVariable("Testing") is null)
+            {
+                return new OpenMeteoWeatherService(services.GetRequiredService<IHttpClientFactory>());
+            }
+
+            return new FakeWeatherService();
+        });
 
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
