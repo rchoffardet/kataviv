@@ -2,6 +2,8 @@
 
 namespace kataviv.Features.Ads;
 
+#nullable disable
+
 public class AdIn
 {
     [Required]
