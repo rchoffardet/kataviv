@@ -38,4 +38,4 @@ jobs:
       - name: Push image
         run: |
           docker tag kataviv ghcr.io/rchoffardet/kataviv:latest
-          docker push ghcr.io/rchoffardet/kataviv:latest'
+          docker push ghcr.io/rchoffardet/kataviv:latest
