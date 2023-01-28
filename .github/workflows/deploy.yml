@@ -21,15 +21,21 @@ jobs:
         run: dotnet restore
 
       - name: Build
-        run: dotnet build
+        run: dotnet build -C Release
 
       - name: Test with the dotnet CLI
         run: dotnet test
+
+      - name: Publish
+        run: dotnet publish -C Release
+
+      - name: Build image
+        run: docker build . --file Dockerfile --tag kataviv
 
       - name: Log into registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
         
       - name: Push image
         run: |
-          docker tag kataviv ghcr.io/rchoffardet/kataviv/kataviv:latest
-          docker push ghcr.io/rchoffardet/kataviv/kataviv:latest'
+          docker tag kataviv ghcr.io/rchoffardet/kataviv:latest
+          docker push ghcr.io/rchoffardet/kataviv:latest'
