@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kataviv", "kataviv\kataviv.csproj", "{B39C732C-06E7-4D58-87D1-440B87774556}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kataviv.tests", "kataviv.tests\kataviv.tests.csproj", "{DF1C3562-D9CB-40F5-A71B-42E717048B11}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B39C732C-06E7-4D58-87D1-440B87774556}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B39C732C-06E7-4D58-87D1-440B87774556}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B39C732C-06E7-4D58-87D1-440B87774556}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B39C732C-06E7-4D58-87D1-440B87774556}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF1C3562-D9CB-40F5-A71B-42E717048B11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF1C3562-D9CB-40F5-A71B-42E717048B11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF1C3562-D9CB-40F5-A71B-42E717048B11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF1C3562-D9CB-40F5-A71B-42E717048B11}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3C8A2551-31AF-49FC-BBE1-C11185927414}
+	EndGlobalSection
+EndGlobal
